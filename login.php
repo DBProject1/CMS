@@ -52,7 +52,7 @@ function login() {
       {
         $_SESSION['username'] = $rows[0]['name'];
         $_SESSION['userpriv'] = $rows[0]['rolecode'];
-        header( "Location: admin.php" );
+        header( "Location: login.php" );
       }
       else
       {
@@ -79,7 +79,7 @@ function login() {
 function logout() {
   unset( $_SESSION['username'] );
   unset( $_SESSION['userpriv']);
-  header( "Location: admin.php" );
+  header( "Location: login.php" );
 }
 
 
@@ -98,12 +98,12 @@ function newArticle() {
     $data['author'] = $_SESSION['username'];
     $article->storeFormValues( $data );
     $article->insert();
-    header( "Location: admin.php?status=changesSaved" );
+    header( "Location: login.php?status=changesSaved" );
 
   } elseif ( isset( $_POST['cancel'] ) ) {
 
     // User has cancelled their edits: return to the article list
-    header( "Location: admin.php" );
+    header( "Location: login.php" );
   } else {
 
     // User has not posted the article edit form yet: display the form
@@ -125,18 +125,18 @@ function editArticle() {
     // User has posted the article edit form: save the article changes
 
     if ( !$article = Article::getById( (int)$_POST['articleId'] ) ) {
-      header( "Location: admin.php?error=articleNotFound" );
+      header( "Location: login.php?error=articleNotFound" );
       return;
     }
 
     $article->storeFormValues( $_POST );
     $article->update();
-    header( "Location: admin.php?status=changesSaved" );
+    header( "Location: login.php?status=changesSaved" );
 
   } elseif ( isset( $_POST['cancel'] ) ) {
 
     // User has cancelled their edits: return to the article list
-    header( "Location: admin.php" );
+    header( "Location: login.php" );
   } else {
 
     // User has not posted the article edit form yet: display the form
@@ -150,12 +150,12 @@ function editArticle() {
 function deleteArticle() {
 
   if ( !$article = Article::getById( (int)$_GET['articleId'] ) ) {
-    header( "Location: admin.php?error=articleNotFound" );
+    header( "Location: login.php?error=articleNotFound" );
     return;
   }
 
   $article->delete();
-  header( "Location: admin.php?status=articleDeleted" );
+  header( "Location: login.php?status=articleDeleted" );
 }
 
 
