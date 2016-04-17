@@ -33,7 +33,12 @@ class Article
   */
   public $content = null;
 
-
+  /**
+  * @var int The author ID from the database
+  */
+  public $author  = null;
+  
+  
   /**
   * Sets the object's properties using the values in the supplied array
   *
@@ -42,6 +47,7 @@ class Article
 
   public function __construct( $data=array() ) {
     if ( isset( $data['id'] ) ) $this->id = (int) $data['id'];
+    if ( isset( $data['author'] ) ) $this->author = $data['author'];
     if ( isset( $data['publicationDate'] ) ) $this->publicationDate = (int) $data['publicationDate'];
     if ( isset( $data['title'] ) ) $this->title = preg_replace ( "/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['title'] );
     if ( isset( $data['summary'] ) ) $this->summary = preg_replace ( "/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['summary'] );
@@ -58,8 +64,9 @@ class Article
   public function storeFormValues ( $params ) {
 
     // Store all the parameters
+    if($author !== null)
+      $params['author'] = $this->$author;
     $this->__construct( $params );
-
     // Parse and store the publication date
     if ( isset($params['publicationDate']) ) {
       $publicationDate = explode ( '-', $params['publicationDate'] );
@@ -99,12 +106,24 @@ class Article
   * @return Array|false A two-element array : results => array, a list of Article objects; totalRows => Total number of articles
   */
 
-  public static function getList( $numRows=1000000, $order="publicationDate DESC" ) {
+  public static function getList( $permission, $author = "", $numRows=1000000, $order="publicationDate DESC" ) {
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-    $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles
+    $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles 
             ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
-
-    $st = $conn->prepare( $sql );
+    if($permission === 'super')
+    {
+      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles
+              ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
+      $st = $conn->prepare( $sql );
+    }
+    else
+    {
+      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE author = :author 
+              ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
+      $st = $conn->prepare( $sql );
+      $st->bindValue( ":author", $author, PDO::PARAM_STR );
+      
+    }
     $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
     $st->execute();
     $list = array();
@@ -133,12 +152,13 @@ class Article
 
     // Insert the Article
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-    $sql = "INSERT INTO articles ( publicationDate, title, summary, content ) VALUES ( FROM_UNIXTIME(:publicationDate), :title, :summary, :content )";
+    $sql = "INSERT INTO articles ( publicationDate, title, summary, content,author ) VALUES ( FROM_UNIXTIME(:publicationDate), :title, :summary, :content, :author )";
     $st = $conn->prepare ( $sql );
     $st->bindValue( ":publicationDate", $this->publicationDate, PDO::PARAM_INT );
     $st->bindValue( ":title", $this->title, PDO::PARAM_STR );
     $st->bindValue( ":summary", $this->summary, PDO::PARAM_STR );
     $st->bindValue( ":content", $this->content, PDO::PARAM_STR );
+    $st->bindValue( ":author", $this->author, PDO::PARAM_STR );
     $st->execute();
     $this->id = $conn->lastInsertId();
     $conn = null;

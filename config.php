@@ -7,8 +7,6 @@ define( "DB_PASSWORD", "123" );
 define( "CLASS_PATH", "classes" );
 define( "TEMPLATE_PATH", "templates" );
 define( "HOMEPAGE_NUM_ARTICLES", 5 );
-define( "ADMIN_USERNAME", "admin" );
-define( "ADMIN_PASSWORD", "pass" );
 require( CLASS_PATH . "/Article.php" );
 
 function handleException( $exception ) {

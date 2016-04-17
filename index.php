@@ -16,7 +16,7 @@ switch ( $action ) {
 
 function archive() {
   $results = array();
-  $data = Article::getList();
+  $data = Article::getList('super');
   $results['articles'] = $data['results'];
   $results['totalRows'] = $data['totalRows'];
   $results['pageTitle'] = "Content Management System";

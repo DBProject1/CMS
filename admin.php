@@ -4,12 +4,11 @@ require( "config.php" );
 session_start();
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = isset( $_SESSION['username'] ) ? $_SESSION['username'] : "";
-
+$userpriv = isset( $_SESSION['userpriv']) ? $_SESSION['userpriv'] : "";
 if ( $action != "login" && $action != "logout" && !$username ) {
   login();
   exit;
 }
-
 switch ( $action ) {
   case 'login':
     login();
@@ -36,34 +35,50 @@ function login() {
   $results = array();
   $results['pageTitle'] = "Admin Login | Widget News";
 
-  if ( isset( $_POST['login'] ) ) {
+  if ( isset( $_POST['login'] ) ) 
+  {
 
     // User has posted the login form: attempt to log the user in
-
-    if ( $_POST['username'] == ADMIN_USERNAME && $_POST['password'] == ADMIN_PASSWORD ) {
-
-      // Login successful: Create a session and redirect to the admin homepage
-      $_SESSION['username'] = ADMIN_USERNAME;
-      header( "Location: admin.php" );
-
-    } else {
-
-      // Login failed: display an error message to the user
-      $results['errorMessage'] = "Incorrect username or password. Please try again.";
-      require( TEMPLATE_PATH . "/admin/loginForm.php" );
+    $sql = "SELECT * from users WHERE name = :name AND password = :password";
+    try
+    {
+      $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
+      $stmt = $conn->prepare( $sql );
+      $stmt->bindValue( ":name", $_POST['username'], PDO::PARAM_STR );
+      $stmt->bindValue( ":password", $_POST['password'], PDO::PARAM_STR );
+      $stmt->execute();
+      $rows  = $stmt->fetchAll();
+      if (count($results) > 0)
+      {
+        $_SESSION['username'] = $rows[0]['name'];
+        $_SESSION['userpriv'] = $rows[0]['rolecode'];
+        header( "Location: admin.php" );
+      }
+      else
+      {
+        // Login failed: display an error message to the user
+        $results['errorMessage'] = "Incorrect username or password. Please try again.";
+        require( TEMPLATE_PATH . "/admin/loginForm.php" );
+      }
     }
-
-  } else {
+    catch(Exception $e)
+    {
+      echo "Error".$e;
+    }
+  } 
+  else 
+	{
 
     // User has not posted the login form yet: display the form
     require( TEMPLATE_PATH . "/admin/loginForm.php" );
-  }
+	}
 
 }
 
 
 function logout() {
   unset( $_SESSION['username'] );
+  unset( $_SESSION['userpriv']);
   header( "Location: admin.php" );
 }
 
@@ -78,7 +93,10 @@ function newArticle() {
 
     // User has posted the article edit form: save the new article
     $article = new Article;
-    $article->storeFormValues( $_POST );
+    $data = $_POST;
+    global $result;
+    $data['author'] = $_SESSION['username'];
+    $article->storeFormValues( $data );
     $article->insert();
     header( "Location: admin.php?status=changesSaved" );
 
@@ -143,7 +161,7 @@ function deleteArticle() {
 
 function listArticles() {
   $results = array();
-  $data = Article::getList();
+  $data = Article::getList($_SESSION['userpriv'],$_SESSION['username']);
   $results['articles'] = $data['results'];
   $results['totalRows'] = $data['totalRows'];
   $results['pageTitle'] = "All Articles";
