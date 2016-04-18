@@ -1,5 +1,5 @@
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <?php include "templates/include/header.php" ?>
-
       <div id="adminHeader">
         <h2>DASHBOARD</h2>
         <p>You are logged in as <b><?php echo htmlspecialchars( $_SESSION['username']) ?></b>. <a href="login.php?action=logout"?>Log out</a></p>
@@ -25,12 +25,16 @@
             <label for="summary">Article Summary</label>
             <textarea name="summary" id="summary" placeholder="Brief description of the article" required maxlength="1000" style="height: 5em;"><?php echo htmlspecialchars( $results['article']->summary )?></textarea>
           </li>
-
+          
           <li>
-            <label for="content">Article Content</label>
-            <textarea name="content" id="content" placeholder="The HTML content of the article" required maxlength="100000" style="height: 30em;"><?php echo htmlspecialchars( $results['article']->content )?></textarea>
+            <textarea cols="80" rows="10" name="content" id="content" required maxlength="100000"><?php echo htmlspecialchars( $results['article']->content )?>
+            </textarea>
+            <script type="text/javascript">
+              CKEDITOR.replace( 'content' );
+            </script>
+            
           </li>
-
+         
           <li>
             <label for="publicationDate">Publication Date</label>
             <input type="date" name="publicationDate" id="publicationDate" placeholder="YYYY-MM-DD" required maxlength="10" value="<?php echo $results['article']->publicationDate ? date( "Y-m-d", $results['article']->publicationDate ) : "" ?>" />
