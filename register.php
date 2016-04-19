@@ -11,23 +11,37 @@ if(isset($_POST["register"]))
 
 function register1()  {
 
-  echo "hello";
     $results = array();
     $results['pageTitle'] = "User Registration";
 
 
       $sql = "INSERT INTO users (name,password,rolecode) VALUES(:name,:password,:user)";
-
+       $sql2 = "SELECT * from users WHERE name = :name";
 
       try
       {
           $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $stmt = $conn->prepare( $sql );
+          $stmt = $conn->prepare( $sql2 );
           $stmt->bindValue( ":name", $_POST["username"], PDO::PARAM_STR );
-          $stmt->bindValue( ":password", $_POST["password"], PDO::PARAM_STR );
-          $stmt->bindValue( ":user", "user", PDO::PARAM_STR );
           $stmt->execute();
+          $rows  = $stmt->fetchAll();
+          if (count($rows) > 0)
+          {
+            //username already present
+            $results['errorMessage'] = "Username Already Present.";
+            require( TEMPLATE_PATH . "/admin/loginForm.php" );
+          }
+          else
+          {
+            // unique username
+            $stmt = $conn->prepare( $sql );
+            $stmt->bindValue( ":name", $_POST["username"], PDO::PARAM_STR );
+            $stmt->bindValue( ":password", $_POST["password"], PDO::PARAM_STR );
+            $stmt->bindValue( ":user", "user", PDO::PARAM_STR );
+            $stmt->execute();
+            header( "Location: login.php" );
+          }
         }
 
         catch(Exception $e)

@@ -31,36 +31,6 @@ switch ( $action ) {
   default:
     listArticles();
 }
-/*
-function register1()  {
-    $results = array();
-    $results['pageTitle'] = "User Registration";
-
-    if(isset($_POST['reg'])){
-
-      $username = $_POST['username'];
-      $password = $_POST['password'];
-
-
-
-        $sql = "INSERT INTO users (name,password,rolecode) VALUES(:name,:password,:user)";
-
-
-          $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $stmt = $conn->prepare( $sql );
-          $stmt->bindValue( ":name", $_POST['username'], PDO::PARAM_STR );
-          $stmt->bindValue( ":password", $_POST['password'], PDO::PARAM_STR );
-          $stmt->bindValue( ":user", "user", PDO::PARAM_STR );
-          $stmt->execute();
-
-
-
-
-        }
-
-}
-*/
 
 function login() {
 
@@ -80,7 +50,7 @@ function login() {
       $stmt->bindValue( ":password", $_POST['password'], PDO::PARAM_STR );
       $stmt->execute();
       $rows  = $stmt->fetchAll();
-      if (count($results) > 0)
+      if (count($rows) > 0)
       {
         $_SESSION['username'] = $rows[0]['name'];
         $_SESSION['userpriv'] = $rows[0]['rolecode'];

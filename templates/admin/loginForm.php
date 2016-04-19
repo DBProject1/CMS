@@ -31,7 +31,7 @@
           </div>
           <script type="text/javascript">
           document.getElementById("regist").onclick = function () {
-            location.href = "/blog/register.php";
+            location.href = "register.php";
           };
           </script>
       </form>
