@@ -6,8 +6,8 @@ CREATE TABLE role
 (
   rolecode        varchar(50) NOT NULL,
   rolename        varchar(50) NOT NULL,
-  
-  PRIMARY KEY     (rolecode) 
+
+  PRIMARY KEY     (rolecode)
 );
 INSERT INTO role VALUES('super','Administrator');
 INSERT INTO role VALUES('user','Author');
@@ -18,11 +18,12 @@ CREATE TABLE users
   name            varchar(255) NOT NULL,
   password        varchar(255) NOT NULL,
   rolecode        varchar(50) NOT NULL,
-  
+
   PRIMARY KEY     (name),
   FOREIGN KEY     (rolecode) REFERENCES role(rolecode)
 );
 INSERT INTO users (name,password,rolecode) VALUES("admin","pass","super");
+
 
 CREATE TABLE articles
 (

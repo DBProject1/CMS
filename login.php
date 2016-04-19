@@ -2,10 +2,13 @@
 
 require( "config.php" );
 session_start();
+
+
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = isset( $_SESSION['username'] ) ? $_SESSION['username'] : "";
 $userpriv = isset( $_SESSION['userpriv']) ? $_SESSION['userpriv'] : "";
-if ( $action != "login" && $action != "logout" && !$username ) {
+
+if ( $action != "login" && $action != "regist" && $action != "logout" && !$username ) {
   login();
   exit;
 }
@@ -28,14 +31,43 @@ switch ( $action ) {
   default:
     listArticles();
 }
+/*
+function register1()  {
+    $results = array();
+    $results['pageTitle'] = "User Registration";
 
+    if(isset($_POST['reg'])){
+
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+
+
+
+        $sql = "INSERT INTO users (name,password,rolecode) VALUES(:name,:password,:user)";
+
+
+          $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $stmt = $conn->prepare( $sql );
+          $stmt->bindValue( ":name", $_POST['username'], PDO::PARAM_STR );
+          $stmt->bindValue( ":password", $_POST['password'], PDO::PARAM_STR );
+          $stmt->bindValue( ":user", "user", PDO::PARAM_STR );
+          $stmt->execute();
+
+
+
+
+        }
+
+}
+*/
 
 function login() {
 
   $results = array();
   $results['pageTitle'] = "Admin Login | Widget News";
 
-  if ( isset( $_POST['login'] ) ) 
+  if ( isset( $_POST['login'] ) )
   {
 
     // User has posted the login form: attempt to log the user in
@@ -65,8 +97,8 @@ function login() {
     {
       echo "Error".$e;
     }
-  } 
-  else 
+  }
+  else
 	{
 
     // User has not posted the login form yet: display the form

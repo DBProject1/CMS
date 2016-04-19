@@ -37,8 +37,8 @@ class Article
   * @var int The author ID from the database
   */
   public $author  = null;
-  
-  
+
+
   /**
   * Sets the object's properties using the values in the supplied array
   *
@@ -108,7 +108,7 @@ class Article
 
   public static function getList( $permission, $author = "", $numRows=1000000, $order="publicationDate DESC" ) {
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-    $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles 
+    $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles
             ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
     if($permission === 'super')
     {
@@ -118,11 +118,11 @@ class Article
     }
     else
     {
-      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE author = :author 
+      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE author = :author
               ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
       $st = $conn->prepare( $sql );
       $st->bindValue( ":author", $author, PDO::PARAM_STR );
-      
+
     }
     $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
     $st->execute();
@@ -173,7 +173,7 @@ class Article
 
     // Does the Article object have an ID?
     if ( is_null( $this->id ) ) trigger_error ( "Article::update(): Attempt to update an Article object that does not have its ID property set.", E_USER_ERROR );
-   
+
     // Update the Article
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
     $sql = "UPDATE articles SET publicationDate=FROM_UNIXTIME(:publicationDate), title=:title, summary=:summary, content=:content WHERE id = :id";
