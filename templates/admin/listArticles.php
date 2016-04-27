@@ -1,4 +1,5 @@
 <?php include "templates/include/header.php" ?>
+<?php include "templates/admin/include/header.php" ?>
 
       <div id="adminHeader">
         <h2>DASHBOARD</h2>
@@ -20,6 +21,7 @@
         <tr>
           <th>Publication Date</th>
           <th>Article</th>
+           <th>Category</th>
         </tr>
 
 <?php foreach ( $results['articles'] as $article ) { ?>
@@ -28,6 +30,9 @@
           <td><?php echo date('j M Y', $article->publicationDate)?></td>
           <td>
             <?php echo $article->title?>
+          </td>
+          <td>
+            <?php echo $results['categories'][$article->categoryId]->name?>
           </td>
         </tr>
 
@@ -40,4 +45,3 @@
       <p><a href="login.php?action=newArticle">Add a New Article</a></p>
 
 <?php include "templates/include/footer.php" ?>
-

@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS articles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS categories;
+
+
 
 CREATE TABLE role
 (
@@ -30,6 +33,7 @@ CREATE TABLE articles
   id              smallint unsigned NOT NULL auto_increment,
   author          varchar(255) NOT NULL,
   publicationDate date NOT NULL,                              # When the article was published
+  categoryId      smallint unsigned NOT NULL,
   title           varchar(255) NOT NULL,                      # Full title of the article
   summary         text NOT NULL,                              # A short summary of the article
   content         mediumtext NOT NULL,                        # The HTML content of the article
@@ -37,3 +41,14 @@ CREATE TABLE articles
   PRIMARY KEY     (id),
   FOREIGN KEY     (author) REFERENCES users(name)
 );
+
+CREATE TABLE categories
+(
+  id              smallint unsigned NOT NULL auto_increment,
+  name            varchar(255) NOT NULL,                      # Name of the category
+  description     text NOT NULL,                              # A short description of the category
+
+  PRIMARY KEY     (id)
+);
+
+ALTER TABLE articles ADD categoryId smallint unsigned NOT NULL AFTER publicationDate;

@@ -54,6 +54,11 @@ h2 a {
   text-decoration: none;
 }
 
+h3.categoryDescription {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+
 
 /* Article headlines */
 
@@ -65,6 +70,7 @@ h2 a {
 
 #headlines li {
   margin-bottom: 2em;
+  clear: both;
 }
 
 .pubDate {
@@ -74,8 +80,10 @@ h2 a {
 }
 
 #headlines .pubDate {
-  display: inline-block;
+  display: block;
   width: 100px;
+  padding-top: 4px;
+  float: left;
   font-size: .5em;
   vertical-align: middle;
 }
@@ -90,6 +98,20 @@ h2 a {
 
 #headlines.archive .summary {
   padding-left: 130px;
+}
+
+.category {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 60%;
+  color: #999;
+  display: block;
+  line-height: 2em;
+}
+
+.category a {
+  color: #999;
+  text-decoration: underline;
 }
 
 
@@ -113,7 +135,7 @@ form {
   background: #fff4cf;
   border: 1px solid #666;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;  
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
   -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
@@ -164,7 +186,7 @@ input, select, textarea {
 input, textarea, .date {
   border: 2px solid #666;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;    
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   background: #fff;
 }
@@ -190,7 +212,7 @@ textarea {
 textarea#content {
   font-family: "Courier New", courier, fixed;
 }
-  
+
 
 /* Place a border around focused fields */
 
@@ -221,7 +243,7 @@ input[type="submit"] {
   padding: 10px;
   border: 2px solid #7c412b;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;  
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
   -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
@@ -293,7 +315,7 @@ tr:hover {
   margin: 2em 0;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px; 
+  border-radius: 5px;
   -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
   -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
   -box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
@@ -310,4 +332,3 @@ tr:hover {
   border: 1px solid #800;
   color: #fff;
 }
-
