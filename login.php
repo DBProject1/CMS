@@ -108,7 +108,7 @@ function newArticle() {
     // User has posted the article edit form: save the new article
     $article = new Article;
     $data = $_POST;
-  //  $data['author'] = $_SESSION['username'];
+    $data['author'] = $_SESSION['username'];
     $article->storeFormValues( $data );
     $article->insert();
     header( "Location: login.php?status=changesSaved" );
