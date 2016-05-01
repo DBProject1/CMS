@@ -72,8 +72,8 @@ class Article
   public function storeFormValues ( $params ) {
 
     // Store all the parameters
-    if($author !== null)
-      $params['author'] = $this->$author;
+    if($this->author !== null)
+      $params['author'] = $this->author;
     $this->__construct( $params );
     // Parse and store the publication date
     if ( isset($params['publicationDate']) ) {
@@ -114,29 +114,29 @@ class Article
   * @return Array|false A two-element array : results => array, a list of Article objects; totalRows => Total number of articles
   */
 
-  public static function getList( $permission,  $categoryId=null, $author="", $numRows=1000000, $order="publicationDate DESC" ) {
+  public static function getList( $permission, $author = "", $categoryId=null, $numRows=1000000, $order="publicationDate DESC" ) {
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
     $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE categoryId = :categoryId
             ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
 
-    //$categoryClause = $categoryId ? "WHERE categoryId = :categoryId" : "";
+    $categoryClause = $categoryId ? "WHERE categoryId = :categoryId" : "";
 
 
     if($permission === 'super')
     {
-      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE categoryId = :categoryId
-              ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
+      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles ".$categoryClause.
+              " ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
       $st = $conn->prepare( $sql );
     }
     else
     {
-      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE categoryId = :categoryId AND author = :author
+      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles ".$categoryClause." AND author = :author
               ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
       $st = $conn->prepare( $sql );
       $st->bindValue( ":author", $author, PDO::PARAM_STR );
 
     }
-    $st->bindValue( ":categoryId", $categoryId, PDO::PARAM_INT );
+    if($categoryId!==null)$st->bindValue( ":categoryId", $categoryId, PDO::PARAM_INT );
     $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
     $st->execute();
     $list = array();
@@ -165,7 +165,7 @@ class Article
 
     // Insert the Article
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-    $sql = "INSERT INTO articles ( publicationDate, title, summary, content,author ) VALUES ( FROM_UNIXTIME(:publicationDate),:categoryId, :title, :summary, :content, :author )";
+    $sql = "INSERT INTO articles ( publicationDate, categoryId, title, summary, content,author ) VALUES ( FROM_UNIXTIME(:publicationDate),:categoryId, :title, :summary, :content, :author )";
     $st = $conn->prepare ( $sql );
     $st->bindValue( ":publicationDate", $this->publicationDate, PDO::PARAM_INT );
     $st->bindValue( ":categoryId", $this->categoryId, PDO::PARAM_INT );
@@ -224,5 +224,6 @@ class Article
 }
 
 ?>
+
 </body>
 </html>
