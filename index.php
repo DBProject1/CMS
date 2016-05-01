@@ -19,7 +19,7 @@ function archive() {
   $results = array();
   $categoryId = ( isset( $_GET['categoryId'] ) && $_GET['categoryId'] ) ? (int)$_GET['categoryId'] : null;
   $results['category'] = Category::getById( $categoryId );
-  $data = Article::getList('super');
+  $data = Article::getList('super',$results['category']->id );
   $results['articles'] = $data['results'];
   $results['totalRows'] = $data['totalRows'];
   $data = Category::getList();
