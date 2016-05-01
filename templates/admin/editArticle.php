@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/include/header.php" ?>
@@ -67,3 +70,5 @@
 <?php } ?>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

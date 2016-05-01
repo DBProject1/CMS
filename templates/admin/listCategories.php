@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/include/header.php" ?>
 
@@ -34,3 +37,5 @@
       <p><a href="login.php?action=newCategory">Add a New Category</a></p>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

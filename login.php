@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 
 require( "config.php" );
@@ -298,3 +301,5 @@ function deleteCategory() {
 }
 
 ?>
+</body>
+</html>

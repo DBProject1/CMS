@@ -1,5 +1,38 @@
 /* Style the body and outer container */
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+img {
+    padding:10px;
+    border:2px;
+    margin:0px;
+}
+.left
+{
+	float: left;
+}
 
+.right
+{
+	float: right;
+}
+
+</style>
 body {
   margin: 0;
   color: #333;
@@ -9,10 +42,10 @@ body {
 }
 
 #container {
-  width: 960px;
-  background: #fff;
-  margin: 20px auto;
-  padding: 20px;
+  width: 1080px;
+  background: #f6fdff;
+  margin: 15px auto;
+  padding: 15px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;

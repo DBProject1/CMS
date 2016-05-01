@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 
 /**
@@ -221,3 +224,6 @@ class Article
 }
 
 ?>
+
+</body>
+</html>
