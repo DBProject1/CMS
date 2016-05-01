@@ -2,7 +2,7 @@
 <HEAD>
 <body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
-      <link rel="stylesheet" href="/highlighter/styles/default.css">
+      <link rel="stylesheet" href="/highlighter/styles/monokai.css">
       <h1 style="width: 75%;"><?php echo htmlspecialchars( $results['article']->title )?></h1>
       <div style="width: 75%; font-style: italic;"><?php echo htmlspecialchars( $results['article']->summary )?></div>
       <div style="width: 75%;"><?php echo $results['article']->content?></div>

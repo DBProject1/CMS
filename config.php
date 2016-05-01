@@ -2,7 +2,7 @@
 <HEAD>
 <body background="bg.jpg">
 <?php
-ini_set( "display_errors", true );
+ini_set( "display_errors", false );
 date_default_timezone_set( "Asia/Calcutta" );  // http://www.php.net/manual/en/timezones.php
 define( "DB_DSN", "mysql:host=localhost;dbname=cms" );
 define( "DB_USERNAME", "root" );

@@ -4,10 +4,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/include/header.php" ?>
 
-      <div id="adminHeader">
-        <h2>DASHBOARD</h2>
-        <p>You are logged in as <b><?php echo htmlspecialchars( $_SESSION['username']) ?></b>. <a href="login.php?action=logout"?>Log out</a></p>
-      </div>
+      
 
       <h1>All Articles</h1>
 
