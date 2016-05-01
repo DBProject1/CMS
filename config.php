@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 ini_set( "display_errors", true );
 date_default_timezone_set( "Asia/Calcutta" );  // http://www.php.net/manual/en/timezones.php
@@ -17,3 +20,5 @@ function handleException( $exception ) {
 
 set_exception_handler( 'handleException' );
 ?>
+</body>
+</html>

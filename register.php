@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 
 require( "config.php" );
@@ -82,3 +85,5 @@ function register1()  {
       </form>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

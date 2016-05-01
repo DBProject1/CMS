@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 
       <ul id="headlines">
@@ -21,3 +24,5 @@
       <p><a href="./?action=archive">Article Archive</a></p>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

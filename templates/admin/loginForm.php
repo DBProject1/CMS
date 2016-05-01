@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 
       <form action="login.php?action=login" method="post" style="width: 50%;">
@@ -38,3 +41,5 @@
 
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 
 /**
@@ -161,3 +164,5 @@ class Category
 
 }
 ?>
+</body>
+</html>

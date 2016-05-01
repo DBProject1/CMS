@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/include/header.php" ?>
 
@@ -36,3 +39,5 @@
 <?php } ?>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

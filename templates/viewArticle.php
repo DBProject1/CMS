@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 
       <h1 style="width: 75%;"><?php echo htmlspecialchars( $results['article']->title )?></h1>
@@ -13,3 +16,5 @@
       <p><a href="./">Return to Homepage</a></p>
 
 <?php include "templates/include/footer.php" ?>
+</body>
+</html>

@@ -1,3 +1,6 @@
+<HTML>
+<HEAD>
+<body background="bg.jpg">
 <?php
 
 require( "config.php" );
@@ -56,3 +59,5 @@ function homepage() {
 }
 
 ?>
+</body>
+</html>
