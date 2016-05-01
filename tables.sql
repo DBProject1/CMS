@@ -33,7 +33,6 @@ CREATE TABLE articles
   id              smallint unsigned NOT NULL auto_increment,
   author          varchar(255) NOT NULL,
   publicationDate date NOT NULL,                              # When the article was published
-  categoryId      smallint unsigned NOT NULL,
   title           varchar(255) NOT NULL,                      # Full title of the article
   summary         text NOT NULL,                              # A short summary of the article
   content         mediumtext NOT NULL,                        # The HTML content of the article
