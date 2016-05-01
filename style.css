@@ -1,5 +1,17 @@
 /* Style the body and outer container */
 
+
+.left
+{
+	float: left;
+}
+
+.right
+{
+	float: right;
+}
+
+</style>
 body {
   margin: 0;
   color: #333;

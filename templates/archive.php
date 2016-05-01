@@ -3,8 +3,6 @@
 <body background="bg.jpg">
 <?php include "templates/include/header.php" ?>
 
-      <h1>Article Archive</h1>
-
 
       <h1><?php echo htmlspecialchars( $results['pageHeading'] ) ?></h1>
 <?php if ( $results['category'] ) { ?>
@@ -21,7 +19,7 @@
                         <span class="category">in <a href=".?action=archive&amp;categoryId=<?php echo $article->categoryId?>"><?php echo htmlspecialchars( $results['categories'][$article->categoryId]->name ) ?></a></span>
             <?php } ?>
           </h2>
-          <p class="summary"><?php echo htmlspecialchars( $article->summary )?></p>
+          <p class="summary"><?php echo htmlspecialchars( $article->summary ) ?> <span class="right"><?php echo "By ".htmlspecialchars( $article->author )?></span> </p>
         </li>
 
 <?php } ?>
