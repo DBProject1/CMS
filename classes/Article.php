@@ -130,7 +130,9 @@ class Article
     }
     else
     {
-      $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles ".$categoryClause." AND author = :author
+      if($categoryId!==null)$sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles ".$categoryClause." AND author = :author
+              ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
+      else $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publicationDate) AS publicationDate FROM articles WHERE author = :author
               ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
       $st = $conn->prepare( $sql );
       $st->bindValue( ":author", $author, PDO::PARAM_STR );

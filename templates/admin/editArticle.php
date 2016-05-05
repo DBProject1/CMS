@@ -4,10 +4,7 @@
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/include/header.php" ?>
-      <div id="adminHeader">
-        <h2>DASHBOARD</h2>
-        <p>You are logged in as <b><?php echo htmlspecialchars( $_SESSION['username']) ?></b>. <a href="login.php?action=logout"?>Log out</a></p>
-      </div>
+      
 
       <h1><?php echo $results['pageTitle']?></h1>
 
@@ -42,7 +39,7 @@
           <li>
            <label for="categoryId">Article Category</label>
            <select name="categoryId">
-             <option value="0"<?php echo !$results['article']->categoryId ? " selected" : ""?>>(none)</option>
+             
            <?php foreach ( $results['categories'] as $category ) { ?>
              <option value="<?php echo $category->id?>"<?php echo ( $category->id == $results['article']->categoryId ) ? " selected" : ""?>><?php echo htmlspecialchars( $category->name )?></option>
            <?php } ?>

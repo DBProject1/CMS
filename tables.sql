@@ -36,6 +36,7 @@ CREATE TABLE articles
   title           varchar(255) NOT NULL,                      # Full title of the article
   summary         text NOT NULL,                              # A short summary of the article
   content         mediumtext NOT NULL,                        # The HTML content of the article
+  categoryId      smallint unsigned NOT NULL
 
   PRIMARY KEY     (id),
   FOREIGN KEY     (author) REFERENCES users(name)
@@ -50,4 +51,4 @@ CREATE TABLE categories
   PRIMARY KEY     (id)
 );
 
-ALTER TABLE articles ADD categoryId smallint unsigned NOT NULL AFTER publicationDate;
+--ALTER TABLE articles ADD categoryId smallint unsigned NOT NULL AFTER publicationDate;

@@ -11,7 +11,7 @@
      in <a href="./?action=archive&amp;categoryId=<?php echo $results['category']->id?>"><?php echo htmlspecialchars( $results['category']->name ) ?></a>
 <?php } ?>
    </p>
-      <p class="pubDate">Published on <?php echo date('j F Y', $results['article']->publicationDate)?></p>
+      
 
       <p><a href="./">Return to Homepage</a></p>
 <script src="/highlighter/highlight.pack.js"></script>
