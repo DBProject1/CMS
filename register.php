@@ -40,7 +40,7 @@ function register1()  {
             // unique username
             $stmt = $conn->prepare( $sql );
             $stmt->bindValue( ":name", $_POST["username"], PDO::PARAM_STR );
-            $stmt->bindValue( ":password", $_POST["password"], PDO::PARAM_STR );
+            $stmt->bindValue( ":password", password_hash($_POST["password"], PASSWORD_BCRYPT), PDO::PARAM_STR );
             $stmt->bindValue( ":user", "user", PDO::PARAM_STR );
             $stmt->execute();
             header( "Location: login.php" );

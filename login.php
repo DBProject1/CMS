@@ -56,16 +56,16 @@ function login() {
   {
 
     // User has posted the login form: attempt to log the user in
-    $sql = "SELECT * from users WHERE name = :name AND password = :password";
+    $sql = "SELECT * from users WHERE name = :name";
     try
     {
       $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
       $stmt = $conn->prepare( $sql );
       $stmt->bindValue( ":name", $_POST['username'], PDO::PARAM_STR );
-      $stmt->bindValue( ":password", $_POST['password'], PDO::PARAM_STR );
+      $password = $_POST['password'];
       $stmt->execute();
       $rows  = $stmt->fetchAll();
-      if (count($rows) > 0)
+      if (count($rows) > 0 and password_verify($password, $rows[0]['password']))
       {
         $_SESSION['username'] = $rows[0]['name'];
         $_SESSION['userpriv'] = $rows[0]['rolecode'];
